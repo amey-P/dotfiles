@@ -58,6 +58,7 @@ alias df='df -h'                                                # Human-readable
 alias du='du -h'
 alias free='free -m'                                            # Show sizes in MB
 alias ipython='ipython --TerminalInteractiveShell.editing_mode=vi'
+alias l='exa'
 
 # Theming section  
 autoload -U compinit colors zcalc
