@@ -21,6 +21,10 @@ else
 	done < $PROGRAM_LIST
 fi
 
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+~/.cargo/env
+cargo install alacritty exa bat fd
+
 # Populating configs
 ls -d */ | xargs stow
 

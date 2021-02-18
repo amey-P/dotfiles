@@ -1,12 +1,13 @@
+stow
+curl
+gcc
+cmake
+
 vim
 ctags
 tmux
 zsh
 nodejs
 
-alacritty
-
 ranger
 fzf
-bat
-exa
