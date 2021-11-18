@@ -21,7 +21,7 @@ else
 	done < $PROGRAM_LIST
 fi
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ~/.cargo/env
 cargo install alacritty exa bat fd
 
@@ -29,3 +29,15 @@ cargo install alacritty exa bat fd
 ls -d */ | xargs stow
 
 chsh -s $(which zsh)
+
+# Tmux Setup
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# Remapping Keys
+while read keyboard_remap.txt
+do
+	if [ -z $(grep "$remap" ~/.xinitrc) ]
+	then
+		echo $remap >> ~/.xinitrc
+	fi
+done

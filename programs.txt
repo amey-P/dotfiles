@@ -1,9 +1,10 @@
+git
 stow
 curl
 gcc
 cmake
 
-vim
+vim-gtk
 ctags
 tmux
 zsh
@@ -11,3 +12,4 @@ nodejs
 
 ranger
 fzf
+neofetch

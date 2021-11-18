@@ -37,7 +37,7 @@
 	" Programming
 	Plug 'tpope/vim-fugitive'
 	Plug 'dense-analysis/ALE'
-	Plug 'neoclide/coc.nvim'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'neoclide/coc-python'
 
 	" Visual
