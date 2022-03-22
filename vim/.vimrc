@@ -20,25 +20,30 @@
 "Plugins
 	call plug#begin('~/.vim/plugged')
 
-	" Basic
+	" Editing
 	Plug 'tpope/vim-commentary'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-repeat'
 	Plug 'michaeljsmith/vim-indent-object'
+	Plug 'moll/vim-bbye'
 
-	" Functional
+	" Utilities and Navigation
 	Plug 'junegunn/fzf'
 	Plug 'junegunn/fzf.vim'
 	Plug 'vimwiki/vimwiki'
-	Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
 	Plug 'itchyny/calendar.vim'
 
-	" Programming
+	" Programming Utils
+	Plug 'SirVer/ultisnips'
+	Plug 'amey-P/vim-snippets'
 	Plug 'tpope/vim-fugitive'
 	Plug 'dense-analysis/ALE'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'neoclide/coc-python'
+	Plug 'prabirshrestha/vim-lsp'
+	Plug 'prabirshrestha/asyncomplete.vim'
+	Plug 'mattn/vim-lsp-settings'
+	Plug 'andreypopp/asyncomplete-ale.vim'
+	Plug 'prabirshrestha/asyncomplete-lsp.vim'
+	Plug 'rhysd/vim-lsp-ale'
 
 	" Visual
 	Plug 'itchyny/lightline.vim'
@@ -81,25 +86,57 @@
 	      \ },
 	      \ }
 
+	" Asyncompleter
+
+	" LSP
+		" General
+		let g:lsp_diagnostics_enabled = 0	" Diagnostics done by ALE not LSP
+
+		" Mappings
+		function! s:on_lsp_buffer_enabled() abort
+		    setlocal omnifunc=lsp#complete
+		    setlocal signcolumn=yes
+		    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+		    nmap <buffer> gd <plug>(lsp-definition)
+		    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+		    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+		    nmap <buffer> gr <plug>(lsp-references)
+		    nmap <buffer> gi <plug>(lsp-implementation)
+		    nmap <buffer> gt <plug>(lsp-type-definition)
+		    nmap <buffer> <leader>rn <plug>(lsp-rename)
+		    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+		    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+		    nmap <buffer> K <plug>(lsp-hover)
+		endfunction
+		" Enable mappings if has language server installed
+		augroup lsp_install
+		    au!
+		    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+		    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+		augroup END
+
+		" Folding
+		" set foldmethod=expr
+		"   \ foldexpr=lsp#ui#vim#folding#foldexpr()
+		"   \ foldtext=lsp#ui#vim#folding#foldtext()
+	
 " Mappings
+	" Global
+	nnoremap Y y$
+	nnoremap n nzzzv
+	nnoremap N Nzzzv
+
+
+	" Navigation
 	nnoremap <Leader>b :Buffers<CR>
 	nnoremap <Leader>e :Files<CR>
 	nnoremap <Leader>f :Rg<CR>
-	nnoremap <Leader>/ :BLines<CR>
-	nnoremap <Leader>// :BLines<CR>
+	nnoremap <Leader>/ :Lines<CR>
+	nnoremap <Leader>C :Commands<CR>
+	nnoremap <Leader>H :Helptags!<CR>
 
-	" Use `[g` and `]g` to navigate diagnostics
-	" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-	nmap <silent> [g <Plug>(coc-diagnostic-prev)
-	nmap <silent> ]g <Plug>(coc-diagnostic-next)
-	" " GoTo code navigation.
-	nmap <silent> gd <Plug>(coc-definition)
-	nmap <silent> gy <Plug>(coc-type-definition)
-	nmap <silent> gi <Plug>(coc-implementation)
-	nmap <silent> gr <Plug>(coc-references)
-
-	" " Use K to show documentation in preview window.
-	nnoremap <silent> K :call <SID>show_documentation()<CR>
+	" Linter and LSP
+	nnoremap <Leader>fx :ALEFix<CR>
 
 	" Vista Toggle
 	nnoremap <F8> :Vista!!<CR>

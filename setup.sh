@@ -1,43 +1,10 @@
-PROGRAM_LIST="./programs.txt"
-FAILED_INSTALLATION="./failed.txt"
+#! /bin/sh
 
-# Installing all programs
-if [ -z "$1" ];
-then
-	echo "Enter the installer command with appropriate flags."
-	echo "Flags must enable the installer to install all files mentioned inside a text file."
-	echo
-	echo "apt-get install -y"
-	echo "pacman -S"
-	exit 1;
-else
-	while read p
-	do
-		$@ $p
-		if [ $? != 0 ]
-		then
-			echo $p >> $FAILED_INSTALLATION
-		fi
-	done < $PROGRAM_LIST
-fi
-
-# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-~/.cargo/env
-cargo install alacritty exa bat fd
+sudo sh scripts/su_setup.sh
 
 # Populating configs
-ls -d */ | xargs stow
+ls -d */ | grep -v scripts | xargs stow
 
-chsh -s $(which zsh)
 
 # Tmux Setup
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-# Remapping Keys
-while read keyboard_remap.txt
-do
-	if [ -z $(grep "$remap" ~/.xinitrc) ]
-	then
-		echo $remap >> ~/.xinitrc
-	fi
-done
