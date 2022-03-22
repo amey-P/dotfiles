@@ -13,3 +13,4 @@ nodejs
 ranger
 fzf
 neofetch
+alacritty

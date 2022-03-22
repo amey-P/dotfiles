@@ -1,7 +1,7 @@
 #! /bin/sh
 
-PROGRAM_LIST="./programs.txt"
-FAILED_INSTALLATION="./failed.log"
+PROGRAM_LIST="scripts/programs.txt"
+FAILED_INSTALLATION="scripts/failed.log"
 echo "" > $FAILED_INSTALLATION
 
 # Installing all programs
@@ -23,9 +23,5 @@ else
 		fi
 	done < $PROGRAM_LIST
 fi
-
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-~/.cargo/env
-cargo install alacritty exa bat fd
 
 chsh -s $(which zsh)
