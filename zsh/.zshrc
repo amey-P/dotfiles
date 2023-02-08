@@ -10,6 +10,8 @@ setopt appendhistory                                            # Immediately ap
 setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
 setopt autocd                                                   # if only directory path is entered, cd there.
 
+export PATH=$PATH:$HOME/.local/bin
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -86,6 +88,7 @@ alias du='du -h'
 alias free='free -m'                                            # Show sizes in MB
 alias ipython='ipython --TerminalInteractiveShell.editing_mode=vi'
 alias l='exa'
+alias xo='xdg-open'
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
@@ -132,7 +135,33 @@ fi
 
 # Activate python virtualenv
 activate() {
-source $(find $1 -regex ".*/bin/activate$")  # commented out by conda initialize
+source $(find $1 -regex ".*/bin/activate$")  # commented out by conda initialize  # commented out by conda initialize
 }
 
 neofetch
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/amey/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/amey/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/amey/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/amey/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+# Added by Amplify CLI binary installer
+export PATH="$HOME/.amplify/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

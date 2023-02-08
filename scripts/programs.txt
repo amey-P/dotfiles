@@ -12,5 +12,6 @@ nodejs
 
 ranger
 fzf
+ripgrep
 neofetch
 alacritty

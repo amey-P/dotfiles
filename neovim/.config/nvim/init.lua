@@ -1,0 +1,7 @@
+require("globals")
+require("plugins")
+require("keymaps")
+require("autocomplete")
+require("lsp")
+require("org")
+require("final")
