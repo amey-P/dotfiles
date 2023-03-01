@@ -11,6 +11,7 @@ vim.opt.shiftwidth = 4
 vim.opt.colorcolumn = "81"
 vim.g.airline_theme = "tomorrow"
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}		-- Autocompletion Configuration
 
 -- Neovide Settings

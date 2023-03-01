@@ -18,6 +18,14 @@ require('lspconfig')['tsserver'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
 }
+require('lspconfig')['lua_ls'].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
+-- require('lspconfig')['marksman'].setup{
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+-- }
 require('lspconfig')['rust_analyzer'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
@@ -27,3 +35,6 @@ require('lspconfig')['rust_analyzer'].setup{
       }
     }
 }
+
+-- Disable Co-pilot by default. Annoying AF
+vim.g.copilot_enabled = false

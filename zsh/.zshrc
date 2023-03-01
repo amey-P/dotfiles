@@ -89,6 +89,7 @@ alias free='free -m'                                            # Show sizes in 
 alias ipython='ipython --TerminalInteractiveShell.editing_mode=vi'
 alias l='exa'
 alias xo='xdg-open'
+alias neovide='NODE_PATH=$(which node) neovide'
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
@@ -118,7 +119,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-EDITOR=vim
+EDITOR=nvim
 LANG=en_US.UTF-8
 LC_CTYPE=en_US.UTF-8
 
@@ -162,6 +163,9 @@ export PATH="$HOME/.amplify/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Add node path for nodejs. Ensure `node` is installed
+NODE_PATH="$HOME/.local/bin/nodejs"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
