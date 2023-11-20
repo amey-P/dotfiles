@@ -90,6 +90,7 @@ alias ipython='ipython --TerminalInteractiveShell.editing_mode=vi'
 alias l='exa'
 alias xo='xdg-open'
 alias neovide='NODE_PATH=$(which node) neovide'
+alias ranger='TERM=xterm-256color ranger'
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
@@ -119,7 +120,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-EDITOR=nvim
+export EDITOR=nvim
 LANG=en_US.UTF-8
 LC_CTYPE=en_US.UTF-8
 
@@ -140,6 +141,9 @@ source $(find $1 -regex ".*/bin/activate$")  # commented out by conda initialize
 }
 
 neofetch
+
+# Zoxide setup
+eval "$(zoxide init zsh)"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

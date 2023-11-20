@@ -10,10 +10,14 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
+
+-- Python LSPs
 require('lspconfig')['pyright'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
 }
+-- -------------
+
 require('lspconfig')['tsserver'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
@@ -38,3 +42,5 @@ require('lspconfig')['rust_analyzer'].setup{
 
 -- Disable Co-pilot by default. Annoying AF
 vim.g.copilot_enabled = false
+
+require('gen').model = 'zephyr'

@@ -52,6 +52,9 @@ vim.keymap.set('i', '<M-o>', "<C-o>:Copilot panel<CR>", bufopts)
 vim.keymap.set('i', '<M-d>', "<C-o>:Copilot disable<CR>", bufopts)
 vim.keymap.set('i', '<M-a>', "<C-o>:Copilot enable<CR>", bufopts)
 --
+-- Misc Language Tools
+vim.keymap.set('v', '<leader>]', ':Gen<CR>')
+vim.keymap.set('n', '<leader>]', ':Gen<CR>')
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -61,13 +64,14 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist, opts)
 
 -- DAP
-vim.keymap.set('n', '<F10>', ":lua require('dapui').toggle()<CR>", options)
+vim.keymap.set('n', '<F5>', ":lua require('dapui').toggle()<CR>", options)
 vim.keymap.set('n', '<leader>b', ":lua require('dap').toggle_breakpoint()<CR>", options)
 vim.keymap.set('n', '<leader>B', ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", options)
 vim.keymap.set('n', '<leader>dc', ":lua require('dap').continue()<CR>", options)
 vim.keymap.set('n', '<leader>dn', ":lua require('dap').step_over()<CR>", options)
 vim.keymap.set('n', '<leader>ds', ":lua require('dap').step_into()<CR>", options)
 vim.keymap.set('n', '<leader>do', ":lua require('dap').step_out()<CR>", options)
+vim.keymap.set('n', '<leader>dt', ":lua require('dap').terminate()<CR>", options)
 
 -- Neorg
 vim.keymap.set('n', '<leader>nn', ":Neorg index<CR>", options)
@@ -75,9 +79,13 @@ vim.keymap.set('n', '<leader>nw', require('notetaking').switch_workspace, option
 vim.keymap.set('n', '<localleader>r', ":Neorg return<CR>", options)
 vim.keymap.set('n', '<localleader>t', ":Neorg journal today<CR>", options)
 vim.keymap.set('n', '<localleader>y', ":Neorg journal yesterday<CR>", options)
--- vim.keymap.set('n', '<localleader>u', ":Neorg journal toc update<CR>", options)
+vim.keymap.set('n', '<localleader>tu', ":Neorg journal toc update<CR>", options)
 -- vim.keymap.set('n', '<localleader>i', ":Neorg journal toc open<CR>", options)
 -- vim.keymap.set('n', '<localleader>e', ":Neorg keybind all core.looking-glass.magnify-code-block<CR>", options)
+vim.keymap.set('n', '<localleader>mi', ":Neorg inject-metadata<CR>", options)
+vim.keymap.set('n', '<localleader>mu', ":Neorg update-metadata<CR>", options)
+vim.keymap.set('n', '<localleader>is', ":Neorg generate-workspace-summary<CR>", options)
+
 
 -- Misc
 vim.keymap.set('n', "<F9>", ":FloatermToggle<cr>", options)

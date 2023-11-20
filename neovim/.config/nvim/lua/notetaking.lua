@@ -3,6 +3,7 @@ local config = {
         personal = "~/Documents/notes/personal",
         study = "~/Documents/notes/study",
         professional = "~/Documents/notes/professional",
+        cfa = "~/Documents/notes/cfa",
     },
     default_workspace = "study",
 }
@@ -10,25 +11,31 @@ local config = {
 require('neorg').setup {
     load = {
         ["core.defaults"] = {},
-        ["core.norg.concealer"] = {
+        ["core.concealer"] = {
             config = {
                 folds = false,
             }
         },
-        ["core.norg.completion"] = {
+        ["core.completion"] = {
             config = {
                 engine = "nvim-cmp",
             }
         },
-        ["core.norg.dirman"] = {
+        ["core.dirman"] = {
             config = config
         },
-        ["core.norg.journal"] = {
+        ["core.journal"] = {
             config = {
                 journal_folder = "journal",
                 strategy = "flat"
             }
         },
+        ["core.summary"] = {},
+        ["core.qol.todo_items"] = {
+            config = {
+                create_todo_parents = true
+            }
+        }
     }
 }
 

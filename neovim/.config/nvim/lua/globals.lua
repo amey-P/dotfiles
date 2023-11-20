@@ -18,3 +18,7 @@ vim.opt.completeopt = {'menu', 'menuone', 'noselect'}		-- Autocompletion Configu
 vim.g.neovide_cursor_animation_length = 0.03
 vim.g.neovide_cursor_trail_length = 0.0
 vim.g.neovide_cursor_vfx_mode = "sonicboom"
+
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
