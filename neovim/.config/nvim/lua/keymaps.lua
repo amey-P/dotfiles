@@ -55,6 +55,8 @@ vim.keymap.set('i', '<M-a>', "<C-o>:Copilot enable<CR>", bufopts)
 -- Misc Language Tools
 vim.keymap.set('v', '<leader>]', ':Gen<CR>')
 vim.keymap.set('n', '<leader>]', ':Gen<CR>')
+vim.keymap.set('n', '<F8>', ':SymbolsOutline<CR>')
+vim.keymap.set('i', '<F8>', ':SymbolsOutline<CR>')
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -85,6 +87,13 @@ vim.keymap.set('n', '<localleader>tu', ":Neorg journal toc update<CR>", options)
 vim.keymap.set('n', '<localleader>mi', ":Neorg inject-metadata<CR>", options)
 vim.keymap.set('n', '<localleader>mu', ":Neorg update-metadata<CR>", options)
 vim.keymap.set('n', '<localleader>is', ":Neorg generate-workspace-summary<CR>", options)
+-- Linking
+vim.keymap.set('n', '<localleader>f', ":Telescope neorg find_norg_files<CR>", options)
+vim.keymap.set('n', '<localleader>f', ":Telescope neorg search_headings<CR>", options)
+vim.keymap.set('n', '<localleader>lf', ":Telescope neorg insert_file_link<CR>", options)
+vim.keymap.set('n', '<localleader>lh', ":Telescope neorg search_headings<CR>", options)
+vim.keymap.set('n', '<localleader>bf', ":Telescope neorg find_backlinks<CR>", options)
+vim.keymap.set('n', '<localleader>bh', ":Telescope neorg find_header_backlinks<CR>", options)
 
 
 -- Misc

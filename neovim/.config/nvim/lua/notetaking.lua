@@ -2,15 +2,17 @@ local config = {
     workspaces = {
         personal = "~/Documents/notes/personal",
         study = "~/Documents/notes/study",
-        professional = "~/Documents/notes/professional",
         cfa = "~/Documents/notes/cfa",
+        notes = "~/Documents/notes/notes",
     },
-    default_workspace = "study",
+    default_workspace = "notes",
 }
 
 require('neorg').setup {
     load = {
         ["core.defaults"] = {},
+        ["core.ui.calendar"] = {},
+        ["core.integrations.telescope"] = {},
         ["core.concealer"] = {
             config = {
                 folds = false,
@@ -35,9 +37,33 @@ require('neorg').setup {
             config = {
                 create_todo_parents = true
             }
+        },
+        ["core.export"] = {},
+        ["core.export.markdown"] = {
+            config = {
+                extensions = "all"
+            }
         }
     }
 }
+
+local neorg_callbacks = require("neorg.core.callbacks")
+
+neorg_callbacks.on_event("core.keybinds.events.enable_keybinds", function(_, keybinds)
+    -- Map all the below keybinds only when the "norg" mode is active
+    keybinds.map_event_to_mode("norg", {
+        n = { -- Bind keys in normal mode
+            { "<C-s>", "core.integrations.telescope.find_linkable" },
+        },
+
+        i = { -- Bind in insert mode
+            { "<C-l>", "core.integrations.telescope.insert_link" },
+        },
+    }, {
+        silent = true,
+        noremap = true,
+    })
+end)
 
 local M = {}
 
@@ -76,5 +102,11 @@ M.switch_workspace = function()
         end,
     }):find()
 end
+
+-- Search and add Category to Note
+-- 1. Search workspace files and list all categories already added
+-- 2. Summarize Using LLM and suggest categories
+
+-- Add Links
 
 return M

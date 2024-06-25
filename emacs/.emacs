@@ -4,7 +4,7 @@
 
 ;; Appearance
 (load-theme 'dracula t)
-(set-frame-font "Fira Code 9" nil t)
+(set-frame-font "Fira Code Medium 11" nil t)
 
 
 ;; Evil Mode

@@ -8,7 +8,7 @@ vim.opt.smartcase = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.colorcolumn = "81"
+vim.g.colorcolumn = "81"
 vim.g.airline_theme = "tomorrow"
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
@@ -22,3 +22,8 @@ vim.g.neovide_cursor_vfx_mode = "sonicboom"
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = "*", -- Adjust the pattern if needed
+  command = "setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
+})
