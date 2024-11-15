@@ -94,8 +94,21 @@ vim.keymap.set('n', '<localleader>lf', ":Telescope neorg insert_file_link<CR>", 
 vim.keymap.set('n', '<localleader>lh', ":Telescope neorg search_headings<CR>", options)
 vim.keymap.set('n', '<localleader>bf', ":Telescope neorg find_backlinks<CR>", options)
 vim.keymap.set('n', '<localleader>bh', ":Telescope neorg find_header_backlinks<CR>", options)
+-- Note Editing
+vim.keymap.set('n', '<leader>nt', ":TableModeToggle<CR>", options)
 
 
 -- Misc
 vim.keymap.set('n', "<F9>", ":FloatermToggle<cr>", options)
 vim.api.nvim_set_keymap("n", "<F4>", ":UndotreeToggle<Enter>", options)
+
+-- Development
+local PLUGIN_NAME = "geno"
+vim.keymap.set("n", "<F6>", function()
+  local plugin = package.loaded[PLUGIN_NAME]
+  if plugin then
+    package.loaded[PLUGIN_NAME] = nil
+  end
+  require(PLUGIN_NAME)
+end, options)
+

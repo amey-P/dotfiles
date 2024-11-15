@@ -23,7 +23,18 @@ vim.g.neovide_cursor_vfx_mode = "sonicboom"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+
+-- Folding
+vim.opt.foldenable = false
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   pattern = "*", -- Adjust the pattern if needed
   command = "setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
 })
+
+
+-- Variables
+M = {
+    NEORG_FOLDER = "/mnt/c/Users/Amey Patil/OneDrive/Documents/Notes/neorg"
+}
+
+return M

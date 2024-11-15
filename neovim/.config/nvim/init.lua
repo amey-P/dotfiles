@@ -22,6 +22,7 @@ vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luar
 
 require("globals")
 require("plugins")
+require("visuals")
 require("autocomplete")
 require("language")
 require("notetaking")

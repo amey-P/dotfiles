@@ -81,3 +81,6 @@ require('lspconfig')['tsserver'].setup {
 require('lspconfig')['rust_analyzer'].setup {
     capabilities = capabilities
 }
+-- require('lspconfig')['lua_ls'].setup {
+--     capabilities = capabilities
+-- }

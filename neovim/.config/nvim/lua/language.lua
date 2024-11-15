@@ -18,14 +18,14 @@ require('lspconfig')['pyright'].setup{
 }
 -- -------------
 
-require('lspconfig')['tsserver'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
-require('lspconfig')['lua_ls'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
+-- require('lspconfig')['tsserver'].setup{
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+-- }
+-- require('lspconfig')['lua_ls'].setup{
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+-- }
 -- require('lspconfig')['marksman'].setup{
 --     on_attach = on_attach,
 --     flags = lsp_flags,
@@ -43,4 +43,19 @@ require('lspconfig')['rust_analyzer'].setup{
 -- Disable Co-pilot by default. Annoying AF
 vim.g.copilot_enabled = false
 
-require('gen').model = 'zephyr'
+require('gen').setup({
+    model="zephyr",
+    host="localhost",
+    port="11434",
+
+    command = function(options)
+        if options.model == "zephyr" then
+            local body = {model = options.model, stream = true}
+            return "curl --silent --no-buffer -X POST http://" .. options.host .. ":" .. options.port .. "/api/chat -d $body"
+        elseif string.find(options.model, "gpt") then
+            local api_key = os.getenv("OPENAI_API_KEY")
+            local cmd = "curl --silent -X POST https://api.openai.com/v1/chat/completions -H \"Authorization: Bearer " .. api_key .. "\" -H \"Content-Type: application/json\" -d '{\"model\": \"" .. options.model .. "\", \"messages\": [{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"" .. options.prompt .. "\"}]}'"
+            return cmd
+        end
+    end,
+})

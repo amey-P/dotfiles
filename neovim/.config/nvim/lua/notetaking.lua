@@ -1,15 +1,22 @@
+local root = require("globals").NEORG_FOLDER
 local config = {
     workspaces = {
-        personal = "~/Documents/notes/personal",
-        study = "~/Documents/notes/study",
-        cfa = "~/Documents/notes/cfa",
-        notes = "~/Documents/notes/notes",
+        personal = root .. "/" .. "personal",
+        study = root .. "/" .. "study",
+        cfa = root .. "/" .. "cfa",
+        notes = root .. "/" .. "notes",
     },
     default_workspace = "notes",
 }
 
 require('neorg').setup {
     load = {
+        ["core.integrations.treesitter"] = {
+            config = {
+                configure_parsers = true,
+                install_parsers = true
+            }
+        },
         ["core.defaults"] = {},
         ["core.ui.calendar"] = {},
         ["core.integrations.telescope"] = {},
@@ -24,7 +31,7 @@ require('neorg').setup {
             }
         },
         ["core.dirman"] = {
-            config = config
+            config = config,
         },
         ["core.journal"] = {
             config = {
@@ -108,5 +115,8 @@ end
 -- 2. Summarize Using LLM and suggest categories
 
 -- Add Links
+function M.encrypt()
+    vim.fn.system("crypt %")
+end
 
 return M
