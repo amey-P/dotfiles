@@ -3,9 +3,13 @@ stow
 curl
 gcc
 cmake
+libssl-dev
+pkg-config
+luarocks
 
-vim-gtk
-ctags
+vim
+emacs
+ctags-universal
 tmux
 zsh
 nodejs
@@ -14,4 +18,3 @@ ranger
 fzf
 ripgrep
 neofetch
-alacritty
