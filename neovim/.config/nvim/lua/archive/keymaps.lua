@@ -6,6 +6,7 @@ vim.api.nvim_set_keymap("n", "Y", "y$", options)
 vim.api.nvim_set_keymap("n", "n", "nzzzv", options)
 vim.api.nvim_set_keymap("n", "N", "Nzzzv", options)
 vim.api.nvim_set_keymap("n", "<Leader><Leader>", "<C-^>", options)
+vim.api.nvim_set_keymap("n", "<Leader>km", ":Telescope keymaps<cr>", options)
 
 -- Navigation
 vim.api.nvim_set_keymap("n", "<F2>", ":NvimTreeToggle<Enter>", options)
@@ -66,14 +67,14 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist, opts)
 
 -- DAP
-vim.keymap.set('n', '<F5>', ":lua require('dapui').toggle()<CR>", options)
-vim.keymap.set('n', '<leader>b', ":lua require('dap').toggle_breakpoint()<CR>", options)
-vim.keymap.set('n', '<leader>B', ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", options)
-vim.keymap.set('n', '<leader>dc', ":lua require('dap').continue()<CR>", options)
-vim.keymap.set('n', '<leader>dn', ":lua require('dap').step_over()<CR>", options)
-vim.keymap.set('n', '<leader>ds', ":lua require('dap').step_into()<CR>", options)
-vim.keymap.set('n', '<leader>do', ":lua require('dap').step_out()<CR>", options)
-vim.keymap.set('n', '<leader>dt', ":lua require('dap').terminate()<CR>", options)
+-- vim.keymap.set('n', '<F5>', ":lua require('dapui').toggle()<CR>", options)
+-- vim.keymap.set('n', '<leader>b', ":lua require('dap').toggle_breakpoint()<CR>", options)
+-- vim.keymap.set('n', '<leader>B', ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", options)
+-- vim.keymap.set('n', '<leader>dc', ":lua require('dap').continue()<CR>", options)
+-- vim.keymap.set('n', '<leader>dn', ":lua require('dap').step_over()<CR>", options)
+-- vim.keymap.set('n', '<leader>ds', ":lua require('dap').step_into()<CR>", options)
+-- vim.keymap.set('n', '<leader>do', ":lua require('dap').step_out()<CR>", options)
+-- vim.keymap.set('n', '<leader>dt', ":lua require('dap').terminate()<CR>", options)
 
 -- Neorg
 vim.keymap.set('n', '<leader>nn', ":Neorg index<CR>", options)
@@ -99,16 +100,16 @@ vim.keymap.set('n', '<leader>nt', ":TableModeToggle<CR>", options)
 
 
 -- Misc
-vim.keymap.set('n', "<F9>", ":FloatermToggle<cr>", options)
+-- vim.keymap.set('n', "<F9>", ":FloatermToggle<cr>", options)
 vim.api.nvim_set_keymap("n", "<F4>", ":UndotreeToggle<Enter>", options)
 
 -- Development
-local PLUGIN_NAME = "geno"
-vim.keymap.set("n", "<F6>", function()
-  local plugin = package.loaded[PLUGIN_NAME]
-  if plugin then
-    package.loaded[PLUGIN_NAME] = nil
-  end
-  require(PLUGIN_NAME)
-end, options)
+-- local PLUGIN_NAME = "geno"
+-- vim.keymap.set("n", "<F6>", function()
+--   local plugin = package.loaded[PLUGIN_NAME]
+--   if plugin then
+--     package.loaded[PLUGIN_NAME] = nil
+--   end
+--   require(PLUGIN_NAME)
+-- end, options)
 

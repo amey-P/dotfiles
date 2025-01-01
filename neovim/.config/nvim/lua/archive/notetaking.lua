@@ -25,11 +25,11 @@ require('neorg').setup {
                 folds = false,
             }
         },
-        ["core.completion"] = {
-            config = {
-                engine = "nvim-cmp",
-            }
-        },
+        -- ["core.completion"] = {
+        --     config = {
+        --         engine = "nvim-cmp",
+        --     }
+        -- },
         ["core.dirman"] = {
             config = config,
         },
