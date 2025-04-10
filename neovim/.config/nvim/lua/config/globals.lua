@@ -25,10 +25,20 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   command = "setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
 })
 
+NEORG_FOLDER = "/mnt/c/Users/Amey Patil/OneDrive/Documents/Notes/neorg"
 
 -- Variables
 M = {
-    NEORG_FOLDER = "/mnt/c/Users/Amey Patil/OneDrive/Documents/Notes/neorg"
+    NEORG_FOLDER = NEORG_FOLDER,
+    config = {
+        workspaces = {
+            personal = NEORG_FOLDER .. "/" .. "personal",
+            study = NEORG_FOLDER .. "/" .. "study",
+            cfa = NEORG_FOLDER .. "/" .. "cfa",
+            notes = NEORG_FOLDER .. "/" .. "notes",
+        },
+        default_workspace = "notes",
+    }
 }
 
 return M

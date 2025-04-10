@@ -50,17 +50,27 @@ return {
         lazy=false,
         dependencies = {
             'nvim-lua/plenary.nvim',
+            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
         },
-        keys = {
-            { "<leader>ff", "<cmd>Telescope find_files<cr>", mode={"n", "v"}, desc="Telescope Find Files" },
-            { "<leader>fg", "<cmd>Telescope live_grep<cr>", mode={"n", "v"}, desc="Telescope Live Grep" },
-            { "<leader>fb", "<cmd>Telescope buffers<cr>", mode={"n", "v"}, desc="Telescope Buffers" },
-            { "<leader>fh", "<cmd>Telescope help_tags<cr>", mode={"n", "v"}, desc="Telescope Help Tags" },
-            { "<Leader>gc", "<cmd>Telescope git_commits<cr>", mode={"n", "v"}, desc="List Git Commits" },
-            { "<Leader>gf", "<cmd>Telescope git_files<cr>", mode={"n", "v"}, desc="List Git Files" },
-            { "<Leader>gs", "<cmd>Telescope git_stash<cr>", mode={"n", "v"}, desc="List Git Stash" },
-            { "<Leader>gg", "<cmd>Telescope git_status<cr>", mode={"n", "v"}, desc="Git Status" },
-        },
+        config = function ()
+            require('telescope').load_extension('fzf')
+            -- Core Bindings
+            vim.keymap.set({"n", "v"}, "<leader>ff", ":Telescope find_files<cr>", {silent = true, noremap = true, desc="Telescope Find Files" })
+            vim.keymap.set({"n", "v"}, "<leader>fg", ":Telescope live_grep<cr>", {silent = true, noremap = true, desc="Telescope Live Grep" })
+            vim.keymap.set({"n", "v"}, "<leader>fb", ":Telescope buffers<cr>", { silent = true, noremap = true, desc="Telescope Buffers" })
+            vim.keymap.set({"n", "v"}, "<Leader>km", ":Telescope keymaps<cr>", { silent = true, noremap = true, desc="Show Keymaps" })
+            vim.keymap.set({"n", "v"}, "<leader>fh", ":Telescope help_tags<cr>", { silent = true, noremap = true, desc="Telescope Help Tags" })
+
+            -- Git Bindings
+            vim.keymap.set({"n", "v"}, "<Leader>gc", ":Telescope git_commits<cr>", { silent = true, noremap = true, desc="List Git Commits" })
+            vim.keymap.set({"n", "v"}, "<Leader>gf", ":Telescope git_files<cr>", { silent = true, noremap = true, desc="List Git Files" })
+            vim.keymap.set({"n", "v"}, "<Leader>gs", ":Telescope git_stash<cr>", { silent = true, noremap = true, desc="List Git Stash" })
+            vim.keymap.set({"n", "v"}, "<Leader>gg", ":Telescope git_status<cr>", { silent = true, noremap = true, desc="Git Status" })
+
+            -- Diagnostics
+            vim.keymap.set({"n", "v"}, "<Leader>ce", ':lua require"telescope.builtin"diagnostics{ severity = "error" }<cr>', { silent = true, noremap = true, desc="Errors in Current Project" })
+            vim.keymap.set({"n", "v"}, "<Leader>cd", ':lua require"telescope.builtin"diagnostics{}<cr>', { silent = true, noremap = true, desc="List Git Commits" })
+        end,
     },
     {
         'nvim-telescope/telescope-symbols.nvim',

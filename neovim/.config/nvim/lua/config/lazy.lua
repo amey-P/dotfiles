@@ -16,6 +16,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("config.globals")
+require("config.keymaps")
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -24,3 +25,5 @@ require("lazy").setup({
     },
     checker = { enabled = true },
 })
+
+require("config.notes")

@@ -91,6 +91,7 @@ alias l='exa'
 alias xo='xdg-open'
 alias neovide='NODE_PATH=$(which node) neovide'
 alias ranger='TERM=xterm-256color ranger'
+alias nvim="ANTHROPIC_API_KEY=$(jq '.ANTHROPIC_API_KEY' ~/Documents/auth.json) nvim"
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
@@ -176,3 +177,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # Ideapad WSL Specific
 export PATH=$PATH:/snap/bin:$HOME/Documents/android-studio/bin
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"
