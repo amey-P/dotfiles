@@ -23,6 +23,9 @@ do
 		echo $p >> $FAILED_INSTALLATION
 	fi
 done < $PROGRAM_LIST
-# fi
 
+# Custom Installation
+sh luarocks.sh
+
+# Final setup for programs
 chsh -s $(which zsh)
