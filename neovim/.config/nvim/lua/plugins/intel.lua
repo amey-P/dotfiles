@@ -159,7 +159,7 @@ return {
             { "<F6>", "<cmd>AvanteToggle<cr>", mode={"n", "v", "i"}, desc="Toggle Avante Window" },
         }
     },
-    {
-        dir = "/home/amey/workspace/neovim/geno.nvim/"
-    },
+    -- {
+    --     dir = "/home/amey/workspace/neovim/geno.nvim/"
+    -- },
 }

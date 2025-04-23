@@ -34,12 +34,11 @@ run_command() {
 declare -A tasks=(
     ["Package Installation"]="./scripts/installer.sh"
     ["Rust Setup"]="./scripts/rust.sh"
-    ["Anaconda Installer"]="./scripts/anaconda.sh"
     ["Oh My ZSH"]="./scripts/zsh.sh"
     ["Populating Configs"]="ls -d */ | grep -v scripts | xargs stow"
     ["Tmux Plugin Manager"]="./scripts/tmux.sh"
     ["Powerline Setup"]="./scripts/powerline.sh"
-    ["Neovim Setup"]="./scripts/nvim.sh"
+    ["Anaconda Installer"]="./scripts/anaconda.sh"
 )
 
 # Define the explicit order in which tasks should run
@@ -51,7 +50,6 @@ ordered_tasks=(
     "Populating Configs"
     "Powerline Setup"
     "Tmux Plugin Manager"
-    "Neovim Setup"
 )
 
 # Iterate through the tasks in the defined order
@@ -63,17 +61,3 @@ for task_name in "${ordered_tasks[@]}"; do
 done
 
 echo "All tasks processed."
-
-# # Tmux Setup
-# git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-#
-# # Oh My ZSH
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# rm $HOME/{.zshrc}
-#
-#
-# # Populating configs
-# ls -d */ | grep -v scripts | xargs stow
-#
-# env "$POWERLINE_CONFIG_COMMAND" tmux setup
-# powerline-config tmux setup

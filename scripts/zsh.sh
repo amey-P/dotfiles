@@ -1,4 +1,7 @@
 #! /bin/bash
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-rm $HOME/{.zshrc}
+rm -f "$HOME/.zshrc"
+
+# Final setup for programs
+chsh -s $(which zsh) $USER

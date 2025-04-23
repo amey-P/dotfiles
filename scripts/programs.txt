@@ -13,8 +13,11 @@ ctags-universal
 tmux
 zsh
 nodejs
+tmux
 
-ranger
 fzf
 ripgrep
 neofetch
+
+fonts-powerline
+powerline-fonts

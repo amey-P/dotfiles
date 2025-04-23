@@ -6,6 +6,6 @@ if ! cargo --version; then
 	source ~/.cargo/env
 fi
 
-cargo install exa bat fd-find zoxide
-cargo install nu --locked
+cargo install exa bat fd-find zoxide macchina
+cargo install --locked nu yazi-fm yazi-cli
 
