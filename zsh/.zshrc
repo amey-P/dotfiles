@@ -90,6 +90,11 @@ alias xo='xdg-open'
 alias neovide='NODE_PATH=$(which node) neovide'
 # alias ranger='TERM=xterm-256color ranger'
 
+## GIT Alias
+alias gits="git status"
+alias gitb="branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate"
+alias gitl="git log --graph --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30"
+
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 
@@ -97,7 +102,6 @@ HIST_STAMPS="dd/mm/yyyy"
 
 plugins=(
 	git
-	fzf
     vi-mode
 )
 
@@ -108,9 +112,9 @@ source $ZSH/oh-my-zsh.sh
 if [[ -z "$TMUX" ]] ;then
     ID="$( tmux ls | grep -vm1 attached | cut -d: -f1 )" # get the id of a deattached session
     if [[ -z "$ID" ]] ;then # if not available create a new one
-	tmux new-session
+        tmux new-session
     else
-	tmux attach-session -t "$ID" # if available attach to it
+        tmux attach-session -t "$ID" # if available attach to it
     fi
 fi
 
@@ -139,9 +143,12 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Source additional config if exists
 [[ -f "$HOME/.config.zsh" ]] && source "$HOME/.config.zsh"
 
 # Startup Greeting
 macchina
+

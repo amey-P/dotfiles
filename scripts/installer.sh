@@ -7,6 +7,10 @@ echo "" > $LOG
 
 sudo $cmd -y $(cat scripts/programs.txt) 2>&1 | tee $LOG
 
+# FZF from git
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
 # Custom Installation
 sh luarocks.sh
 
