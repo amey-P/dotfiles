@@ -9,62 +9,49 @@ return {
             require("mason").setup()
         end
     },
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = {
-            'saghen/blink.cmp',
-            {
-                "folke/lazydev.nvim",
-                ft = "lua",
-                opts = {
-                    library = {
-                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-                    },
-                },
-            },
-        },
-        opts = {
-            servers = {
-                lua_ls = {},
-                rust_analyzer = {},
-                pylsp = {
-                    plugins = {
-                        jedi_definition = { enabled = true },
-                        jedi_completion = { fuzzy = true },
-                        black = { enabled = true },
-                        isort = { enabled = true, profile = "black" },
-                        pylsp_mypy = {
-                            enabled = true,
-                            live_mode = true,
-                            strict = false,
-                        },
-                        rope_autoimport = { enabled = true, completions = { enabled = true }, code_actions = { enabled = true }, },
-                    },
-                },
-            },
-        },
-        config = function(_, opts)
-            local lspconfig = require('lspconfig')
-
-            -- Setup diagnostic keymaps
-            vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic' })
-            vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic' })
-            vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic in floating window' })
-            vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Add diagnostics to location list' })
-            vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "LSP Format Buffer" })
-            vim.keymap.set("v", "<leader>cf", vim.lsp.buf.format, { desc = "LSP Format Selection" })
-            vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration" })
-            vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
-            vim.keymap.set("n", "<leader>ci", vim.lsp.buf.incoming_calls, { desc = "Go to Definition" })
-            vim.keymap.set("n", "<leader>co", vim.lsp.buf.outgoing_calls, { desc = "Go to Definition" })
-            vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Format Buffer" })
-
-            for server, config in pairs(opts.servers) do
-                config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-                lspconfig[server].setup(config)
-            end
-        end,
-    },
+    -- {
+    --     "neovim/nvim-lspconfig",
+    --     dependencies = {
+    --         'saghen/blink.cmp',
+    --         {
+    --             "folke/lazydev.nvim",
+    --             ft = "lua",
+    --             opts = {
+    --                 library = {
+    --                     { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+    --                 },
+    --             },
+    --         },
+    --     },
+    --     opts = {
+    --         servers = {
+    --             lua_ls = {},
+    --             rust_analyzer = {},
+    --             ruff = { init_options = { settings = { } } }
+    --         },
+    --     },
+    --     config = function(_, opts)
+    --         local lspconfig = require('lspconfig')
+    --
+    --         -- Setup diagnostic keymaps
+    --         vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic' })
+    --         vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic' })
+    --         vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic in floating window' })
+    --         vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Add diagnostics to location list' })
+    --         vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "LSP Format Buffer" })
+    --         vim.keymap.set("v", "<leader>cf", vim.lsp.buf.format, { desc = "LSP Format Selection" })
+    --         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration" })
+    --         vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
+    --         vim.keymap.set("n", "<leader>ci", vim.lsp.buf.incoming_calls, { desc = "Go to Definition" })
+    --         vim.keymap.set("n", "<leader>co", vim.lsp.buf.outgoing_calls, { desc = "Go to Definition" })
+    --         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Format Buffer" })
+    --
+    --         for server, config in pairs(opts.servers) do
+    --             config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+    --             lspconfig[server].setup(config)
+    --         end
+    --     end,
+    -- },
     {
         "lervag/vimtex",
         lazy = false,
