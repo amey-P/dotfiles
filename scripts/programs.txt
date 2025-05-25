@@ -17,6 +17,3 @@ tmux
 
 ripgrep
 neofetch
-
-fonts-powerline
-powerline-fonts
