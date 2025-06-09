@@ -98,7 +98,7 @@ alias gitl="git log --graph --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Cr
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 
-HIST_STAMPS="dd/mm/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
 plugins=(
 	git

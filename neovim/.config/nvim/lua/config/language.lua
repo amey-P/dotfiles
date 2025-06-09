@@ -5,7 +5,7 @@
 vim.lsp.config['lua'] = {
     cmd = { 'lua-language-server' },
     filetypes = { 'lua' },
-    root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
+    root_markers = { '.luarc.json', '.luarc.jsonc', '.git' },
     settings = {
         Lua = {
             runtime = {
@@ -18,7 +18,7 @@ vim.lsp.config['lua'] = {
 vim.lsp.config['rust'] = {
     cmd = { 'rust-analyzer' },
     filetypes = { 'rust' },
-    root_markers = { { 'Cargo.toml', 'Cargo.lock' }, '.git' },
+    root_markers = { 'Cargo.toml', 'Cargo.lock', '.git' },
     settings = {
     }
 }
@@ -26,7 +26,7 @@ vim.lsp.config['rust'] = {
 vim.lsp.config['python'] = {
     cmd = { 'ruff', 'server' },
     filetypes = { 'python' },
-    root_markers = { { 'pyproject.toml' }, '.git' },
+    root_markers = { 'pyproject.toml', '.git' },
     settings = {
     }
 }
