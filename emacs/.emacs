@@ -30,31 +30,21 @@
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
          "* TODO : %?\n  %t")
-        ("e" "Epiphany" entry (headline+datetree "~/org/zettlekasten/file.org")
-         "* %?\nEntered on %U\n  %i\n  %a")
-        ("j" "Journal" entry (file+datetree "~/org/journal.org")
-         "* %?\nEntered on %U\n  %i\n  %a")
-	))
-
-;; Org Journal
-(require 'org-journal)
+	("j" "Journal" entry
+	    (file (lambda () 
+		(concat
+		    "~/org/journal/"
+		    (format-time-string "%Y-%m-%d.org")
+		))
+	    )
+	    "* %?\nEntered on %U")
+	)
+)
 
 
 ;; ====================================
 ;; Development Setup
 ;; ====================================
-
-;; Enable elpy
-(elpy-enable)
-
-;; Enable Flycheck
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-
-;; Enable autopep8
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 ;; ====================================
 ;; End of Dev Setup
@@ -67,7 +57,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(org-journal org evil-org magit cmake-mode elpy flycheck py-autopep8 blacken dracula-theme)))
+   '(elisp-lint elisp-autofmt markdown-mode dracula-theme org-journal org evil-org magit which-key)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

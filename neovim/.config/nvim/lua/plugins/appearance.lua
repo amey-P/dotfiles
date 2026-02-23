@@ -89,14 +89,36 @@ return {
             extensions = {},
         },
     },
-
-    -- Language Specific
     {
-        'MeanderingProgrammer/render-markdown.nvim',
-        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-        ---@module 'render-markdown'
-        ---@type render.md.UserConfig
-        opts = {},
+        "OXY2DEV/markview.nvim",
+        lazy = true,
+        ft = 'markdown',
+        opts = {
+            preview = {
+                enable = true,
+            },
+            -- FIX: Inline tag highlighting not working
+            markdown_inline = {
+                enable = true,
+                tags = {
+                    enable = true,
+                    -- Define the highlight group (e.g., using a built-in one or a custom one)
+                    hl = "MarkviewInlineCode",
+                    icon = "󰓹 ",
+                }
+            },
+            yaml = {
+                enable = true,
+                properties = {
+                    tags = { icon = "󰓹 ", hl = "MarkviewYamlProperty" }
+                }
+            },
+        },
+        dependencies = {
+            "saghen/blink.cmp",
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons",
+        },
     },
     {
         'cameron-wags/rainbow_csv.nvim',
@@ -123,20 +145,20 @@ return {
             require("colorizer").setup {
                 filetypes = { "*" },
                 user_default_options = {
-                    RGB = true, -- #RGB hex codes
-                    RRGGBB = true, -- #RRGGBB hex codes
-                    names = true, -- "Name" codes like Blue or blue
-                    RRGGBBAA = true, -- #RRGGBBAA hex codes
-                    AARRGGBB = true, -- 0xAARRGGBB hex codes
-                    rgb_fn = false, -- CSS rgb() and rgba() functions
-                    hsl_fn = false, -- CSS hsl() and hsla() functions
-                    css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-                    css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+                    RGB = true,          -- #RGB hex codes
+                    RRGGBB = true,       -- #RRGGBB hex codes
+                    names = true,        -- "Name" codes like Blue or blue
+                    RRGGBBAA = true,     -- #RRGGBBAA hex codes
+                    AARRGGBB = true,     -- 0xAARRGGBB hex codes
+                    rgb_fn = false,      -- CSS rgb() and rgba() functions
+                    hsl_fn = false,      -- CSS hsl() and hsla() functions
+                    css = false,         -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+                    css_fn = false,      -- Enable all CSS *functions*: rgb_fn, hsl_fn
                     -- Available modes for `mode`: foreground, background,  virtualtext
                     mode = "background", -- Set the display mode.
                     -- Available methods are false / true / "normal" / "lsp" / "both"
                     -- True is same as normal
-                    tailwind = false,                    -- Enable tailwind colors
+                    tailwind = false,                                -- Enable tailwind colors
                     -- parsers can contain values used in |user_default_options|
                     sass = { enable = false, parsers = { "css" }, }, -- Enable sass colors
                     virtualtext = "■",
@@ -150,5 +172,22 @@ return {
             vim.keymap.set('n', '<leader>clt', ":ColorizerToggle<CR>",
                 { desc = 'Toggle Colorizer to highlight HEX code colors' })
         end
+    },
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            presets = {
+                bottom_search = true,         -- use a classic bottom cmdline for search
+                command_palette = true,       -- position the cmdline and popupmenu together
+                long_message_to_split = true, -- long messages will be sent to a split
+                inc_rename = true,            -- enables an input dialog for inc-rename.nvim
+                lsp_doc_border = true,        -- add a border to hover docs and signature help
+            },
+        },
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+        }
     }
 }

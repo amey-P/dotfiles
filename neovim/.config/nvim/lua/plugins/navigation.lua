@@ -23,19 +23,19 @@ return {
         },
         keys = {
             {
-                "<leader>cc",
+                "<F2>",
                 mode = { "n", "v" },
                 "<cmd>Yazi<cr>",
                 desc = "Open yazi at the current file",
             },
             {
                 -- Open in the current working directory
-                "<leader>cw",
+                "<leader>fex",
                 "<cmd>Yazi cwd<cr>",
                 desc = "Open the file manager in nvim's working directory",
             },
             {
-                "<leader>ct",
+                "<leader>fet",
                 "<cmd>Yazi toggle<cr>",
                 desc = "Resume the last yazi session",
             },
@@ -72,9 +72,10 @@ return {
             { "echasnovski/mini.icons", opts = {} },
             "nvim-tree/nvim-web-devicons"
         },
-        keys = {
-            -- { "<F3>", require('oil').toggle_float, mode = { "n", "i", "v" }, desc = "Toggle Oil FLoating Window" },
-        },
+        config = function()
+            vim.keymap.set({ "i", "n", "v" }, "<F3>", require("oil").toggle_float,
+                { silent = true, noremap = true, desc = "Toggle Oil Floating Window" })
+        end
     },
 
     ------------------------------------------------------------------------------------------------------------------
@@ -116,7 +117,7 @@ return {
             vim.keymap.set({ "n", "v" }, "<Leader>ce",
                 ':lua require"telescope.builtin"diagnostics{ severity = "error" }<cr>',
                 { silent = true, noremap = true, desc = "Errors in Current Project" })
-            vim.keymap.set({ "n", "v" }, "<Leader>cd", ':lua require"telescope.builtin"diagnostics{}<cr>',
+            vim.keymap.set({ "n", "v" }, "<Leader>cd", ':Telescope diagnostics<cr>',
                 { silent = true, noremap = true, desc = "List Git Commits" })
         end,
     },
@@ -130,36 +131,36 @@ return {
             { "<c-e>", "<cmd>Telescope symbols<cr>", mode = { "i", "n", "v" }, desc = "Telescope Symbols" },
         },
     },
-    {
-        'ahmedkhalf/project.nvim',
-        lazy = false,
-        dependencies = {
-            'nvim-telescope/telescope.nvim',
-        },
-        config = function()
-            require('telescope').load_extension('projects')
-        end,
-        keys = {
-            { "<leader>fp", "<cmd>Telescope projects<cr>", mode = { "n", "v" }, desc = "Telescope Projects" },
-        },
-    },
+    -- {
+    --     'ahmedkhalf/project.nvim',
+    --     lazy = false,
+    --     dependencies = {
+    --         'nvim-telescope/telescope.nvim',
+    --     },
+    --     config = function()
+    --         require('telescope').load_extension('projects')
+    --     end,
+    --     keys = {
+    --         { "<leader>fp", "<cmd>Telescope projects<cr>", mode = { "n", "v" }, desc = "Telescope Projects" },
+    --     },
+    -- },
     ------------------------------------------------------------------------------------------------------------------
     ------------------------------------------------ Miscellaneous ---------------------------------------------------
     ------------------------------------------------------------------------------------------------------------------
-    {
-        "ggandor/leap.nvim",
-        config = function()
-            require("leap").set_default_mappings()
-        end
-    },
-    {
-        "hedyhli/outline.nvim",
-        lazy = false,
-        keys = {
-            { "<leader>o", "<cmd>Outline<cr>", mode = { "n", "v" }, desc = "Outline" },
-        },
-        config = function()
-            require("outline").setup()
-        end,
-    }
+    -- {
+    --     "ggandor/leap.nvim",
+    --     config = function()
+    --         require("leap").set_default_mappings()
+    --     end
+    -- },
+    -- {
+    --     "hedyhli/outline.nvim",
+    --     lazy = false,
+    --     keys = {
+    --         { "<leader>o", "<cmd>Outline<cr>", mode = { "n", "v" }, desc = "Outline" },
+    --     },
+    --     config = function()
+    --         require("outline").setup()
+    --     end,
+    -- }
 }
