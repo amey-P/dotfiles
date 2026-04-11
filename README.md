@@ -51,7 +51,7 @@ dotfiles/
 | Zsh config | Full | Full | Full | Minimal |
 | Tmux auto-attach | Yes | Yes | Yes | No |
 | Xmodmap (Caps→Esc) | Yes | Yes | No | No |
-| Conda init | Dynamic | Dynamic | Dynamic | Dynamic |
+| Conda init | No | No | No | No |
 | FZF | apt + git | pacman + git | brew | pkg + git |
 | Nerd font | Yes | Yes | Yes | No |
 | Cargo tools | Yes | Yes | Limited | No |
@@ -71,7 +71,6 @@ chezmoi edit ~/.config.zsh
 
 These require manual installation (not managed by chezmoi):
 
-- **Conda/Miniconda**: Download from https://docs.conda.io/en/latest/miniconda.html. The `.zshrc` will auto-source conda if `~/miniconda3` exists.
 - **Age key transfer**: Copy `~/.config/chezmoi/key.txt` between machines.
 
 ## Common Commands
