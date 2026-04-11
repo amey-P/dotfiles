@@ -1,0 +1,29 @@
+{{- if eq .chezmoi.os "darwin" }}
+dot_Xmodmap
+{{- end }}
+
+{{- if eq .chezmoi.os "linux" }}
+{{- /* Termux: exclude Linux-only X11 stuff if on Android */ -}}
+{{- end }}
+
+# vim-plug is managed as external
+dot_vim/autoload/plug.vim
+
+# Oh My Zsh caches
+dot_oh-my-zsh/cache/
+
+# opencode runtime files
+private_dot_config/opencode/node_modules/
+private_dot_config/opencode/bun.lock
+private_dot_config/opencode/.gitignore
+private_dot_config/opencode/skills/
+
+# neovim plugin dirs (managed by lazy.nvim)
+dot_config/nvim/plugin/
+
+# tmux plugin dirs (managed by TPM, except tpm itself which is external)
+dot_config/tmux/plugins/tmux-fzf/
+dot_config/tmux/plugins/tmux-pain-control/
+dot_config/tmux/plugins/tmux-power/
+dot_config/tmux/plugins/tmux-sensible/
+dot_config/tmux/plugins/tmux-yank/

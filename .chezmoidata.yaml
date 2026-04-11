@@ -1,0 +1,81 @@
+packages:
+  apt:
+    - git
+    - stow
+    - curl
+    - gcc
+    - cmake
+    - libssl-dev
+    - pkg-config
+    - luarocks
+    - vim
+    - emacs
+    - universal-ctags
+    - tmux
+    - zsh
+    - nodejs
+    - ripgrep
+    - neofetch
+    - fzf
+  pacman:
+    - git
+    - stow
+    - curl
+    - gcc
+    - cmake
+    - openssl
+    - pkg-config
+    - luarocks
+    - vim
+    - emacs
+    - ctags
+    - tmux
+    - zsh
+    - nodejs
+    - ripgrep
+    - neofetch
+    - fzf
+    - neovim
+  brew:
+    - git
+    - curl
+    - gcc
+    - cmake
+    - openssl
+    - vim
+    - emacs
+    - neovim
+    - tmux
+    - zsh
+    - node
+    - ripgrep
+    - bat
+    - fd
+    - fzf
+    - exa
+  termux:
+    - git
+    - curl
+    - gcc
+    - cmake
+    - vim
+    - neovim
+    - tmux
+    - zsh
+    - nodejs
+    - ripgrep
+    - fzf
+    - fd
+    - bat
+
+cargo_tools:
+  - nu
+  - eza
+  - bat
+  - fd-find
+  - zoxide
+  - macchina
+
+fonts_dir:
+  linux: "{{ .HOME }}/.local/share/fonts"
+  darwin: "{{ .HOME }}/Library/Fonts"
