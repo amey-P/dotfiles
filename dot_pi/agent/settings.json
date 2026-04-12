@@ -1,0 +1,10 @@
+{
+  "packages": [
+    "npm:@imsus/pi-extension-minimax-coding-plan-mcp",
+    "npm:@tintinweb/pi-subagents"
+  ],
+  "defaultThinkingLevel": "high",
+  "hideThinkingBlock": false,
+  "defaultProvider": "minimax",
+  "defaultModel": "MiniMax-M2.7"
+}

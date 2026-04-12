@@ -1,0 +1,25 @@
+{
+  "skill_name": "example-skill",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Realistic user prompt - be specific with context, file paths, details",
+      "expected_output": "Description of what success looks like",
+      "files": [],
+      "expectations": [
+        "The output includes specific expected element",
+        "The skill used the correct approach",
+        "The output format matches requirements"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Another realistic prompt with edge cases",
+      "expected_output": "Description of expected result",
+      "files": ["path/to/input.md"],
+      "expectations": [
+        "The output handles the edge case correctly"
+      ]
+    }
+  ]
+}

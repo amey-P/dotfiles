@@ -31,3 +31,6 @@ brew install \
   node ripgrep bat fd fzf exa || echo "WARNING: brew install failed. Install packages manually."
 
 {{- end }}
+
+echo "Installing npm global packages..."
+npm install -g {{ range .npm_global }}{{ . }} {{ end }}2>/dev/null || echo "WARNING: npm global install failed."

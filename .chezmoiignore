@@ -27,3 +27,7 @@ dot_config/tmux/plugins/tmux-pain-control/
 dot_config/tmux/plugins/tmux-power/
 dot_config/tmux/plugins/tmux-sensible/
 dot_config/tmux/plugins/tmux-yank/
+
+# pi runtime files
+dot_pi/agent/sessions/
+dot_pi/agent/run-history.jsonl

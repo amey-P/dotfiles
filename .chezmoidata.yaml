@@ -68,6 +68,10 @@ packages:
     - fd
     - bat
 
+npm_global:
+  - "@anthropic-ai/claude-code"
+  - pi-coding-agent
+
 cargo_tools:
   - nu
   - eza
