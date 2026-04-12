@@ -70,7 +70,7 @@ packages:
 
 npm_global:
   - "@anthropic-ai/claude-code"
-  - opencode
+  - opencode-ai
   - pi-coding-agent
 
 cargo_tools:
