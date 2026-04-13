@@ -8,11 +8,19 @@ Personal dotfiles managed by [chezmoi](https://www.chezmoi.io/). Supports Linux 
 # Install chezmoi
 sh -c "$(curl -fsLS get.chezmoi.io)"
 
-# Apply dotfiles on a new machine
-chezmoi init --apply git@github.com:amey-P/dotfiles.git
+# Init repo (without applying yet)
+chezmoi init git@github.com:amey-P/dotfiles.git
 
-# Transfer the age encryption key (required for secrets)
-# Copy ~/.config/chezmoi/key.txt from another machine
+# Transfer the age key from another machine BEFORE applying:
+# scp othermachine:~/.config/chezmoi/key.txt ~/.config/chezmoi/key.txt
+
+# Apply everything (requires age key for secrets)
+chezmoi apply
+
+# --- OR: bootstrap without the age key ---
+# Apply everything except encrypted secrets, then install age,
+# transfer the key, and re-apply to decrypt secrets:
+chezmoi apply --exclude encrypted
 ```
 
 ## Structure
@@ -23,12 +31,12 @@ dotfiles/
 ├── .chezmoiexternal.toml          # External deps (Oh My Zsh, TPM, vim-plug)
 ├── .chezmoiignore                  # Platform-specific exclusions
 ├── .chezmoiscripts/                # Idempotent install scripts
-│   ├── run_onchange_after_install-packages.sh.tmpl  # apt/pacman/brew/pkg
-│   ├── run_once_after_install-rust.sh.tmpl         # rustup + cargo tools
-│   ├── run_once_after_install-fonts.sh.tmpl         # Nerd font (Linux/macOS)
-│   ├── run_once_after_install-fzf.sh.tmpl          # FZF from git
-│   ├── run_once_after_install-luarocks.sh           # Build from source
-│   └── run_once_after_setup-zsh.sh                  # chsh -s zsh
+│   ├── run_once_after_10-install-packages.sh.tmpl  # apt/pacman/brew/pkg
+│   ├── run_once_after_20-install-rust.sh.tmpl      # rustup + cargo tools
+│   ├── run_once_after_20-install-fonts.sh.tmpl     # Nerd font (Linux/macOS)
+│   ├── run_once_after_20-install-fzf.sh.tmpl       # FZF from git
+│   ├── run_once_after_20-install-luarocks.sh       # luarocks build
+│   └── run_once_after_90-setup-zsh.sh              # chsh -s zsh
 ├── dot_zshrc.tmpl                  # Zsh config (template: Linux/macOS/Termux)
 ├── dot_emacs                       # Emacs config
 ├── dot_Xmodmap                     # X11 key remap (Linux only)

@@ -8,6 +8,8 @@ packages:
     - libssl-dev
     - pkg-config
     - luarocks
+    - lua5.1
+    - liblua5.1-dev
     - vim
     - emacs
     - universal-ctags
@@ -17,6 +19,7 @@ packages:
     - ripgrep
     - neofetch
     - fzf
+    - age
   pacman:
     - git
     - stow
@@ -36,6 +39,7 @@ packages:
     - neofetch
     - fzf
     - neovim
+    - age
   brew:
     - git
     - curl
@@ -53,6 +57,7 @@ packages:
     - fd
     - fzf
     - exa
+    - age
   termux:
     - git
     - curl

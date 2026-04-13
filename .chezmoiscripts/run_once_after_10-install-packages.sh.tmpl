@@ -8,7 +8,8 @@ set -uo pipefail
 echo "Installing packages via apt..."
 sudo apt update || true
 sudo apt install -y \
-  git stow curl gcc cmake libssl-dev pkg-config luarocks \
+  git stow curl gcc cmake libssl-dev pkg-config \
+  lua5.1 liblua5.1-dev luarocks \
   vim emacs universal-ctags tmux zsh nodejs \
   ripgrep neofetch fzf neovim yazi || echo "WARNING: apt install failed. Install packages manually."
 
