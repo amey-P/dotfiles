@@ -21,7 +21,8 @@ private_dot_config/opencode/skills/
 # neovim plugin dirs (managed by lazy.nvim)
 dot_config/nvim/plugin/
 
-# tmux plugin dirs (managed by TPM, except tpm itself which is external)
+# tmux plugin dirs (all managed externally)
+dot_config/tmux/plugins/tpm/
 dot_config/tmux/plugins/tmux-fzf/
 dot_config/tmux/plugins/tmux-pain-control/
 dot_config/tmux/plugins/tmux-power/
