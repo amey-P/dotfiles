@@ -30,28 +30,32 @@ main() {
             $sudo apt install -y \
                 git stow curl gcc cmake libssl-dev pkg-config luarocks \
                 vim emacs universal-ctags tmux zsh nodejs \
-                ripgrep neofetch fzf neovim yazi fd-find
+                ripgrep neofetch fzf neovim yazi fd-find python3-pip
+            pip3 install --user blessed 2>/dev/null || true
             ;;
         pacman)
             $sudo pacman -Syu --noconfirm \
                 git stow curl gcc cmake openssl pkg-config luarocks \
                 vim emacs ctags tmux zsh nodejs \
-                ripgrep neofetch fzf neovim yazi
+                ripgrep neofetch fzf neovim yazi python-pip
+            pip3 install --user blessed 2>/dev/null || true
             ;;
         brew)
             brew install \
                 git curl gcc cmake vim emacs neovim tmux zsh \
-                node ripgrep bat fd fzf exa
+                node ripgrep bat fd fzf exa python3
+            pip3 install blessed 2>/dev/null || true
             ;;
         pkg)
             $sudo pkg update || true
             $sudo pkg install -y \
                 git curl gcc cmake vim neovim tmux zsh \
-                nodejs ripgrep fzf fd bat
+                nodejs ripgrep fzf fd bat python
+            pip3 install --user blessed 2>/dev/null || true
             ;;
         none)
             log_warn "No package manager detected"
-            log_info "Install manually: git, curl, gcc, make, tmux, zsh, neovim, ripgrep, fzf"
+            log_info "Install manually: git, curl, gcc, make, tmux, zsh, neovim, ripgrep, fzf, python3, pip3, blessed"
             return 0
             ;;
     esac
