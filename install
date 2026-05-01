@@ -1,0 +1,48 @@
+#!/bin/bash
+# Bootstrap script - one command to set up a new machine
+# Usage: curl -fsSL https://raw.githubusercontent.com/amey-P/dotfiles/main/install | bash
+
+set -uo pipefail
+
+REPO_URL="git@github.com:amey-P/dotfiles.git"
+INSTALL_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+
+echo "Bootstrapping dotfiles from $REPO_URL"
+echo "Installation directory: $INSTALL_DIR"
+echo ""
+
+# Check for git
+if ! command -v git &>/dev/null; then
+    echo "Installing git..."
+    if command -v apt &>/dev/null; then
+        sudo apt update && sudo apt install -y git
+    elif command -v pacman &>/dev/null; then
+        sudo pacman -Syu --noconfirm git
+    elif command -v brew &>/dev/null; then
+        brew install git
+    else
+        echo "Error: No package manager found. Install git manually."
+        exit 1
+    fi
+fi
+
+# Clone repo if not exists
+if [[ ! -d "$INSTALL_DIR" ]]; then
+    echo "Cloning repository..."
+    git clone "$REPO_URL" "$INSTALL_DIR" || {
+        echo "Error: Failed to clone repository"
+        echo "Make sure you have SSH access to GitHub or use HTTPS"
+        exit 1
+    }
+fi
+
+cd "$INSTALL_DIR"
+
+# Run the installer
+echo ""
+echo "Running installer..."
+bash "$INSTALL_DIR/scripts/install.sh"
+
+echo ""
+echo "Bootstrap complete!"
+echo "Restart your shell: exec \$SHELL"
