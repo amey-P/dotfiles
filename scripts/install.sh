@@ -36,6 +36,7 @@ OPTIONS:
     -r, --reset         Reset all state (start fresh)
     -f, --force LAYER   Force rerun a layer
     -s, --skip LAYER    Skip a layer
+    -t, --tui           Launch TUI interface
     --layers-only       Run only installation layers (skip config)
     --config-only       Run only configuration layer
 
@@ -47,6 +48,7 @@ LAYERS:
 
 EXAMPLES:
     $(basename "$0")                    # Full installation
+    $(basename "$0") --tui              # Launch TUI
     $(basename "$0") --dry-run         # Preview
     $(basename "$0") -f cargo          # Force rerun cargo layer
     $(basename "$0") --skip os         # Skip OS packages
@@ -71,6 +73,7 @@ while [[ $# -gt 0 ]]; do
         -r|--reset) reset_state; exit 0 ;;
         -f|--force) FORCE_STEPS="$FORCE_STEPS $2"; shift ;;
         -s|--skip) SKIP_STEPS="$SKIP_STEPS $2"; shift ;;
+        -t|--tui) exec python3 "$SCRIPT_DIR/tui.py" "$@" ;;
         --layers-only) LAYERS_ONLY="true" ;;
         --config-only) CONFIG_ONLY="true" ;;
         *) log_error "Unknown option: $1"; usage; exit 1 ;;
