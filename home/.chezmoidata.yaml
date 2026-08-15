@@ -1,3 +1,7 @@
+# Single source of truth for everything the installer installs.
+# Consumed by scripts/layers/*.sh via scripts/lib/packages.sh (read_list).
+# Keep the shape flat: two levels max, plain scalar list items.
+
 packages:
   apt:
     - git
@@ -7,11 +11,12 @@ packages:
     - cmake
     - libssl-dev
     - pkg-config
-    - luarocks
     - lua5.1
     - liblua5.1-dev
+    - luarocks
     - vim
     - emacs
+    - neovim
     - universal-ctags
     - tmux
     - zsh
@@ -19,6 +24,9 @@ packages:
     - ripgrep
     - neofetch
     - fzf
+    - yazi
+    - fd-find
+    - python3-pip
     - age
   pacman:
     - git
@@ -31,6 +39,7 @@ packages:
     - luarocks
     - vim
     - emacs
+    - neovim
     - ctags
     - tmux
     - zsh
@@ -38,7 +47,8 @@ packages:
     - ripgrep
     - neofetch
     - fzf
-    - neovim
+    - yazi
+    - python-pip
     - age
   brew:
     - git
@@ -56,9 +66,10 @@ packages:
     - bat
     - fd
     - fzf
-    - exa
+    - eza
+    - python3
     - age
-  termux:
+  pkg:
     - git
     - curl
     - gcc
@@ -72,20 +83,25 @@ packages:
     - fzf
     - fd
     - bat
-
-npm_global:
-  - "@anthropic-ai/claude-code"
-  - opencode-ai
-  - pi-coding-agent
+    - python
 
 cargo_tools:
-  - nu
-  - eza
-  - bat
-  - fd-find
-  - zoxide
-  - macchina
+  common:
+    - eza
+    - bat
+    - zoxide
+    - macchina
+  linux:
+    - nu
+    - fd-find
+  darwin:
+    - nu
 
-fonts_dir:
-  linux: "{{ .HOME }}/.local/share/fonts"
-  darwin: "{{ .HOME }}/Library/Fonts"
+npm_global:
+  - "@mariozechner/pi-coding-agent"
+  - "@anthropic-ai/claude-code"
+  - opencode-ai
+
+# Needed by scripts/tui.py
+pip_packages:
+  - blessed

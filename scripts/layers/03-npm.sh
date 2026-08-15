@@ -1,6 +1,7 @@
 #!/bin/bash
 # Layer 3: NPM global packages
-# Installs Node.js global tools
+# Installs Node.js global tools.
+# Package list lives in home/.chezmoidata.yaml, not here.
 
 set -uo pipefail
 
@@ -11,23 +12,26 @@ source "$SOURCE_DIR/lib/logger.sh"
 source "$SOURCE_DIR/lib/detection.sh"
 # shellcheck source=../lib/state.sh
 source "$SOURCE_DIR/lib/state.sh"
+# shellcheck source=../lib/packages.sh
+source "$SOURCE_DIR/lib/packages.sh"
 
 main() {
     log_section "Layer 3: NPM Packages"
-    
+
     if ! command -v npm &>/dev/null; then
         log_warn "npm not found, skipping NPM layer"
         return 0
     fi
-    
+
     step "npm-packages" || return $?
-    
-    local packages=(
-        "@mariozechner/pi-coding-agent"
-        "@anthropic-ai/claude-code"
-        "opencode-ai"
-    )
-    
+
+    local packages
+    mapfile -t packages < <(read_list "npm_global")
+
+    if [[ ${#packages[@]} -eq 0 ]]; then
+        log_warn "No npm packages defined in $PKG_DATA_FILE"
+    fi
+
     for pkg in "${packages[@]}"; do
         if npm list -g "$pkg" &>/dev/null; then
             log_debug "Already installed: $pkg"
@@ -36,14 +40,14 @@ main() {
             npm install -g "$pkg" 2>/dev/null || log_warn "Failed: $pkg"
         fi
     done
-    
+
     # Setup pi directories
     step "pi-dirs" || return $?
     mkdir -p "$HOME/.pi/agent/skills" \
              "$HOME/.pi/agent/agents" \
              "$HOME/.pi/agent/extensions" \
              "$HOME/.local/state/dotfiles"
-    
+
     log_success "NPM layer complete"
 }
 

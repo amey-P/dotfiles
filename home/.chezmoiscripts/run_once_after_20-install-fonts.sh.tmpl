@@ -6,9 +6,12 @@ set -euo pipefail
 FONT_DIR="$HOME/.local/share/fonts"
 {{- else if eq .chezmoi.os "darwin" }}
 FONT_DIR="$HOME/Library/Fonts"
+{{- else }}
+echo "No font directory for {{ .chezmoi.os }}; skipping."
+exit 0
 {{- end }}
 
-FONT_FILE="{{- if eq .chezmoi.os "linux" }}$HOME/.local/share/fonts{{- else if eq .chezmoi.os "darwin" }}$HOME/Library/Fonts{{- end }}/DroidSansMNerdFont-Regular.otf"
+FONT_FILE="$FONT_DIR/DroidSansMNerdFont-Regular.otf"
 
 if [[ -f "$FONT_FILE" ]]; then
     echo "Nerd font already installed."

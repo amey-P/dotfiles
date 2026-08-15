@@ -1,0 +1,2 @@
+# Extensions directory - place .ts files here
+# Extensions are loaded from: ~/.pi/agent/extensions/ and .pi/extensions/ (project-local)

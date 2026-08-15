@@ -1,0 +1,33 @@
+{{- /*
+  Patterns here match TARGET paths (~/.config/...), not source-state names
+  (dot_config/...). Writing them in source form makes them silently inert.
+*/ -}}
+
+{{- if eq .chezmoi.os "darwin" }}
+.Xmodmap
+{{- end }}
+
+# Oh My Zsh is an `exact` external; keep its cache from being pruned
+.oh-my-zsh/cache/
+
+# opencode runtime files
+.config/opencode/node_modules/
+.config/opencode/bun.lock
+.config/opencode/.gitignore
+.config/opencode/skills/
+
+# neovim plugin dir (managed by lazy.nvim)
+.config/nvim/plugin/
+
+# tmux plugins installed by tpm at runtime.
+# tpm itself is NOT listed: it comes from .chezmoiexternal.toml, and ignoring
+# it here would stop chezmoi installing it.
+.config/tmux/plugins/tmux-fzf/
+.config/tmux/plugins/tmux-pain-control/
+.config/tmux/plugins/tmux-power/
+.config/tmux/plugins/tmux-sensible/
+.config/tmux/plugins/tmux-yank/
+
+# pi runtime files
+.pi/agent/sessions/
+.pi/agent/run-history.jsonl

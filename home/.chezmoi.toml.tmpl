@@ -1,0 +1,9 @@
+encryption = "age"
+
+[age]
+    identity = "{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt"
+    # Public key derived from key.txt above; required to encrypt new files.
+    recipient = "age1qtjmax4xxug760tuz0uutv53luvv7nd0d97peev7cnfegklej4lqgt2r6j"
+
+[merge]
+    command = "vimdiff"
