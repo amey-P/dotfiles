@@ -1,0 +1,24 @@
+#!/bin/bash
+# Cargo tools. Reruns only when cargo_tools changes.
+# hash: {{ .cargo_tools | toJson | sha256sum }}
+set -eu
+{{ if or (eq (includeTemplate "pkgmgr" . | trim) "pkg") (not .cargo_tools) }}
+echo "cargo-tools: nothing to do"
+{{- else }}
+# shellcheck source=/dev/null
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+if ! command -v cargo >/dev/null 2>&1; then
+    echo "cargo-tools: cargo not found, skipping" >&2
+    exit 0
+fi
+
+installed="$(cargo install --list)"
+for crate in {{ .cargo_tools | join " " }}; do
+    if printf '%s\n' "$installed" | grep -q "^$crate v"; then
+        echo "cargo: $crate already installed"
+    else
+        cargo install --locked "$crate" || echo "warn: cargo install failed: $crate" >&2
+    fi
+done
+{{ end -}}

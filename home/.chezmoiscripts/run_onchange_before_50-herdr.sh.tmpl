@@ -1,0 +1,9 @@
+#!/bin/bash
+# herdr, from its upstream install script.
+set -eu
+
+if command -v herdr >/dev/null 2>&1; then
+    echo "herdr: already installed"
+else
+    curl -fsSL https://herdr.dev/install.sh | sh || echo "warn: herdr install failed" >&2
+fi

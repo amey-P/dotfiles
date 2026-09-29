@@ -1,0 +1,22 @@
+#!/bin/bash
+# NPM global packages. Reruns only when npm_global changes.
+# hash: {{ .npm_global | toJson | sha256sum }}
+set -eu
+
+mkdir -p "$HOME/.pi/agent/skills" "$HOME/.pi/agent/agents" "$HOME/.pi/agent/extensions"
+{{ if not .npm_global }}
+echo "npm-globals: nothing to do"
+{{- else }}
+if ! command -v npm >/dev/null 2>&1; then
+    echo "npm-globals: npm not found, skipping" >&2
+    exit 0
+fi
+
+for pkg in {{ range .npm_global }}{{ . | quote }} {{ end }}; do
+    if npm ls -g --depth=0 "$pkg" >/dev/null 2>&1; then
+        echo "npm: $pkg already installed"
+    else
+        npm install -g "$pkg" || echo "warn: npm install failed: $pkg" >&2
+    fi
+done
+{{ end -}}

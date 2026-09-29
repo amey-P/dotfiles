@@ -1,0 +1,22 @@
+{{- /*
+  Prints the package manager for this machine: brew, apt, pacman, pkg or none.
+  The result is also the key under .packages in .chezmoidata.yaml.
+  Use: {{ $mgr := includeTemplate "pkgmgr" . | trim }}
+*/ -}}
+{{- if eq .chezmoi.os "darwin" -}}
+brew
+{{- else if or (eq .chezmoi.os "android") (and (eq .chezmoi.os "linux") (lookPath "pkg") (not (lookPath "apt"))) -}}
+pkg
+{{- else if eq .chezmoi.os "linux" -}}
+  {{- $id := .chezmoi.osRelease.id | default "" -}}
+  {{- $like := .chezmoi.osRelease.idLike | default "" -}}
+  {{- if or (has $id (list "ubuntu" "debian" "pop" "linuxmint")) (contains "debian" $like) -}}
+apt
+  {{- else if or (has $id (list "arch" "manjaro" "endeavouros")) (contains "arch" $like) -}}
+pacman
+  {{- else -}}
+none
+  {{- end -}}
+{{- else -}}
+none
+{{- end -}}

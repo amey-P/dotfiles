@@ -1,0 +1,12 @@
+#!/bin/bash
+# Rust toolchain via rustup. Termux has no cargo layer; its tools come from pkg.
+set -eu
+{{ if eq (includeTemplate "pkgmgr" . | trim) "pkg" }}
+echo "rustup: skipped on Termux"
+{{- else }}
+if command -v rustup >/dev/null 2>&1; then
+    echo "rustup: already installed"
+else
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+fi
+{{ end -}}

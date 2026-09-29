@@ -1,0 +1,27 @@
+{{- $mgr := includeTemplate "pkgmgr" . | trim -}}
+{{- $pkgs := list -}}
+{{- if hasKey .packages $mgr }}{{ $pkgs = index .packages $mgr }}{{ end -}}
+#!/bin/bash
+# OS packages via {{ $mgr }}. Reruns only when that package list changes.
+# hash: {{ $pkgs | toJson | sha256sum }}
+set -eu
+{{ if not $pkgs }}
+echo "os-packages: no package list for '{{ $mgr }}'; install manually: git curl gcc pkg-config openssl emacs neovim zsh node fzf age"
+{{- else }}
+SUDO=""
+if [ "$(id -u)" -ne 0 ] && command -v sudo >/dev/null 2>&1; then
+    SUDO="sudo"
+fi
+
+{{ if eq $mgr "apt" -}}
+$SUDO apt update || echo "warn: apt update failed" >&2
+$SUDO apt install -y {{ $pkgs | join " " }}
+{{- else if eq $mgr "pacman" -}}
+$SUDO pacman -Syu --noconfirm {{ $pkgs | join " " }}
+{{- else if eq $mgr "brew" -}}
+brew install {{ $pkgs | join " " }}
+{{- else if eq $mgr "pkg" -}}
+pkg update || true
+pkg install -y {{ $pkgs | join " " }}
+{{- end }}
+{{ end -}}
