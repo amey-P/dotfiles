@@ -1,107 +1,75 @@
 # Single source of truth for everything the installer installs.
 # Consumed by scripts/layers/*.sh via scripts/lib/packages.sh (read_list).
 # Keep the shape flat: two levels max, plain scalar list items.
+#
+# Ownership: anything cargo can install is installed by cargo only. The OS
+# lists hold the editors/shell/runtime plus the bootstrap deps cargo, rustup,
+# chezmoi and age need. herdr is installed by its upstream script (01-os.sh).
 
 packages:
   apt:
     - git
-    - stow
     - curl
     - gcc
-    - cmake
-    - libssl-dev
     - pkg-config
-    - lua5.1
-    - liblua5.1-dev
-    - luarocks
-    - vim
+    - libssl-dev
     - emacs
     - neovim
-    - universal-ctags
-    - tmux
     - zsh
     - nodejs
-    - ripgrep
-    - neofetch
     - fzf
-    - yazi
-    - fd-find
-    - python3-pip
     - age
   pacman:
     - git
-    - stow
     - curl
     - gcc
-    - cmake
-    - openssl
     - pkg-config
-    - luarocks
-    - vim
+    - openssl
     - emacs
     - neovim
-    - ctags
-    - tmux
     - zsh
     - nodejs
-    - ripgrep
-    - neofetch
     - fzf
-    - yazi
-    - python-pip
     - age
   brew:
     - git
     - curl
     - gcc
-    - cmake
+    - pkg-config
     - openssl
-    - vim
     - emacs
     - neovim
-    - tmux
     - zsh
     - node
-    - ripgrep
-    - bat
-    - fd
     - fzf
-    - eza
-    - python3
     - age
+  # Termux has no cargo layer, so the cargo tools come from pkg here.
   pkg:
     - git
     - curl
     - gcc
-    - cmake
-    - vim
+    - pkg-config
+    - openssl
+    - emacs
     - neovim
-    - tmux
     - zsh
     - nodejs
-    - ripgrep
     - fzf
+    - age
     - fd
     - bat
-    - python
+    - ripgrep
+    - gitui
+    - yazi
 
 cargo_tools:
-  common:
-    - eza
-    - bat
-    - zoxide
-    - macchina
-  linux:
-    - nu
-    - fd-find
-  darwin:
-    - nu
+  - fd-find
+  - bat
+  - gitui
+  - yazi-fm
+  - yazi-cli
+  - ripgrep
 
 npm_global:
-  - "@mariozechner/pi-coding-agent"
   - "@anthropic-ai/claude-code"
-  - opencode-ai
-
-# Needed by scripts/tui.py
-pip_packages:
-  - blessed
+  - "@mariozechner/pi-coding-agent"

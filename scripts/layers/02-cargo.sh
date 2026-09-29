@@ -18,6 +18,17 @@ source "$SOURCE_DIR/lib/packages.sh"
 # shellcheck source=/dev/null
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
+# crate name -> installed binary, where they differ
+crate_binary() {
+    case "$1" in
+        fd-find) echo fd ;;
+        ripgrep) echo rg ;;
+        yazi-fm) echo yazi ;;
+        yazi-cli) echo ya ;;
+        *) echo "$1" ;;
+    esac
+}
+
 main() {
     local os
     os=$(detect_os)
@@ -46,28 +57,23 @@ main() {
     step "cargo-tools" || return $?
 
     local tools
-    mapfile -t tools < <(read_list "cargo_tools.common"; read_list "cargo_tools.$os")
+    mapfile -t tools < <(read_list "cargo_tools")
 
     if [[ ${#tools[@]} -eq 0 ]]; then
-        log_warn "No cargo tools defined for '$os' in $PKG_DATA_FILE"
+        log_warn "No cargo tools defined in $PKG_DATA_FILE"
         return 0
     fi
 
     # Install missing tools
     for tool in "${tools[@]}"; do
-        local binary="$tool"
-        [[ "$tool" == "fd-find" ]] && binary="fd"
+        local binary
+        binary=$(crate_binary "$tool")
 
         if ! command -v "$binary" &>/dev/null; then
             log_info "Installing cargo tool: $tool"
-            cargo install --locked "$tool" 2>/dev/null || log_warn "Failed: $tool"
+            cargo install --locked "$tool" || log_warn "Failed: $tool"
         fi
     done
-
-    # cargo installs fd-find's binary as `fd` already; link only if it did not
-    if command -v fd-find &>/dev/null && [[ ! -L "$HOME/.cargo/bin/fd" ]]; then
-        ln -sf "$HOME/.cargo/bin/fd-find" "$HOME/.cargo/bin/fd"
-    fi
 
     log_success "Cargo layer complete"
 }

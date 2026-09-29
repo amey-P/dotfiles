@@ -15,19 +15,12 @@ source "$SOURCE_DIR/lib/state.sh"
 # shellcheck source=../lib/packages.sh
 source "$SOURCE_DIR/lib/packages.sh"
 
-install_pip_packages() {
-    local pip_pkgs
-    mapfile -t pip_pkgs < <(read_list "pip_packages")
-    [[ ${#pip_pkgs[@]} -eq 0 ]] && return 0
+install_herdr() {
+    command -v herdr &>/dev/null && return 0
 
-    local pip_user="--user"
-    # Homebrew python installs into a user-writable prefix already.
-    [[ "$(detect_os)" == "darwin" ]] && pip_user=""
-
-    log_info "Installing pip packages: ${pip_pkgs[*]}"
-    # shellcheck disable=SC2086
-    pip3 install $pip_user "${pip_pkgs[@]}" 2>/dev/null \
-        || log_warn "pip install failed (TUI will fall back to CLI mode)"
+    log_info "Installing herdr"
+    curl -fsSL https://herdr.dev/install.sh | sh \
+        || log_warn "herdr install failed"
 }
 
 main() {
@@ -44,7 +37,8 @@ main() {
 
     if [[ ${#packages[@]} -eq 0 ]]; then
         log_warn "No package list defined for '$pkg_mgr' in $PKG_DATA_FILE"
-        log_info "Install manually: git, curl, gcc, cmake, tmux, zsh, neovim, ripgrep, fzf, python3"
+        install_herdr
+        log_info "Install manually: git, curl, gcc, pkg-config, openssl, emacs, neovim, zsh, node, fzf, age"
         return 0
     fi
 
@@ -74,7 +68,7 @@ main() {
             ;;
     esac
 
-    install_pip_packages
+    install_herdr
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
