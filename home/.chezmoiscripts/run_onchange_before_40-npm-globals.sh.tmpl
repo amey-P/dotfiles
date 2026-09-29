@@ -3,7 +3,6 @@
 # hash: {{ .npm_global | toJson | sha256sum }}
 set -eu
 
-mkdir -p "$HOME/.pi/agent/skills" "$HOME/.pi/agent/agents" "$HOME/.pi/agent/extensions"
 {{ if not .npm_global }}
 echo "npm-globals: nothing to do"
 {{- else }}

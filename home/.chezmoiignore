@@ -12,7 +12,3 @@
 
 # neovim plugin dir (managed by lazy.nvim)
 .config/nvim/plugin/
-
-# pi runtime files
-.pi/agent/sessions/
-.pi/agent/run-history.jsonl

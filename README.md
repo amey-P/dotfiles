@@ -61,7 +61,7 @@ dotfiles/
 │
 └── home/                        # chezmoi source state — applied to $HOME
     ├── .chezmoidata.yaml        # ← single source of truth for package lists
-    ├── .chezmoiexternal.toml    # oh-my-zsh, vim-plug
+    ├── .chezmoiexternal.toml    # oh-my-zsh
     ├── .chezmoiignore           # target-path exclusions (see note below)
     ├── .chezmoi.toml.tmpl       # age encryption config
     ├── .chezmoiscripts/         # apply-time hooks (fonts, fzf, chsh)
@@ -70,9 +70,7 @@ dotfiles/
     ├── dot_config/              # ~/.config
     │   ├── nvim/                # Neovim + lazy.nvim
     │   ├── zsh/                 # numbered fragments sourced by ~/.zshrc
-    │   ├── gitui/  yazi/
-    │   └── symlink_pi.tmpl      # ~/.config/pi → ~/.pi/agent
-    ├── dot_pi/                  # ~/.pi — pi agent config, skills, agents
+    │   └── gitui/  yazi/
     └── encrypted_dot_config.zsh.age
 ```
 
@@ -124,7 +122,7 @@ This is the same flow as the one-liner in [Quick Start](#quick-start).
 | `10-os-packages` | `packages.<manager>` via apt/pacman/brew/pkg (manager picked by `.chezmoitemplates/pkgmgr`) |
 | `20-rustup` | rustup (not on Termux) |
 | `30-cargo-tools` | `cargo_tools` not already in `cargo install --list` |
-| `40-npm-globals` | `npm_global` + `~/.pi/agent/*` dirs |
+| `40-npm-globals` | `npm_global` |
 | `50-herdr` | herdr upstream installer |
 
 | Installer | Chezmoi |
@@ -226,7 +224,7 @@ chezmoi managed           # List everything chezmoi would write
 
 ## Secrets Management
 
-Secrets are encrypted with [age](https://age-encryption.org/). The encrypted file `home/encrypted_dot_config.zsh.age` decrypts to `~/.config.zsh` at apply time, and `home/dot_pi/agent/encrypted_private_auth.json.age` to `~/.pi/agent/auth.json`.
+Secrets are encrypted with [age](https://age-encryption.org/). The encrypted file `home/encrypted_dot_config.zsh.age` decrypts to `~/.config.zsh` at apply time.
 
 **Backup your key:**
 ```bash
