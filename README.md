@@ -1,18 +1,28 @@
 # dotfiles
 
-Personal dotfiles managed with a custom installer + [chezmoi](https://www.chezmoi.io/) for configuration. Supports Linux (Debian/Ubuntu, Arch), macOS, and Termux (Android).
+Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/), which also installs the packages and tools they need (there is a legacy shell installer under `scripts/` as well). Supports Linux (Debian/Ubuntu, Arch), macOS, and Termux (Android).
 
 ## Quick Start
 
+One command on a fresh machine. It installs chezmoi, clones this repo, installs
+packages and tools, and applies the configs:
+
 ```bash
-# Clone the repo
-git clone git@github.com:amey-P/dotfiles.git ~/dotfiles
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply amey-P/dotfiles
+```
 
-# Run the installer
-~/dotfiles/scripts/install.sh
+- The chezmoi binary lands in `./bin/chezmoi`. Install it system-wide with
+  `brew install chezmoi` (or your package manager) if you want it on `PATH`.
+- Use `--ssh` after `--apply` to clone over SSH instead of HTTPS.
+- Needs `curl` and `git` already present. `git` is not installed for you.
+- Already have chezmoi? `chezmoi init --apply amey-P/dotfiles`.
+- Later: `chezmoi update` pulls and applies; `chezmoi diff` previews changes.
 
-# Or pipe directly
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/amey-P/dotfiles/main/install)"
+### Legacy installer
+
+```bash
+git clone https://github.com/amey-P/dotfiles.git ~/dotfiles
+~/dotfiles/scripts/install.sh          # add --tui for the interactive front-end
 ```
 
 ## What Gets Installed
@@ -20,10 +30,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/amey-P/dotfiles/main/insta
 | Category | Components |
 |----------|------------|
 | **Shell** | Zsh, Oh My Zsh |
-| **Editor** | Neovim, Vim, Emacs |
-| **Tools** | Tmux, FZF, GitUI, Yazi, Cargo tools |
+| **Editor** | Neovim, Emacs |
+| **Tools** | herdr, FZF, fd, bat, ripgrep, GitUI, Yazi |
 | **Fonts** | Nerd Font (DroidSansMono) |
-| **Agents** | pi, opencode, claude-code |
+| **Agents** | pi, claude-code |
 
 ## Structure
 
@@ -51,7 +61,7 @@ dotfiles/
 │
 └── home/                        # chezmoi source state — applied to $HOME
     ├── .chezmoidata.yaml        # ← single source of truth for package lists
-    ├── .chezmoiexternal.toml    # oh-my-zsh, vim-plug, tpm
+    ├── .chezmoiexternal.toml    # oh-my-zsh, vim-plug
     ├── .chezmoiignore           # target-path exclusions (see note below)
     ├── .chezmoi.toml.tmpl       # age encryption config
     ├── .chezmoiscripts/         # apply-time hooks (fonts, fzf, chsh)
@@ -60,7 +70,7 @@ dotfiles/
     ├── dot_config/              # ~/.config
     │   ├── nvim/                # Neovim + lazy.nvim
     │   ├── zsh/                 # numbered fragments sourced by ~/.zshrc
-    │   ├── tmux/  gitui/  yazi/  opencode/
+    │   ├── gitui/  yazi/
     │   └── symlink_pi.tmpl      # ~/.config/pi → ~/.pi/agent
     ├── dot_pi/                  # ~/.pi — pi agent config, skills, agents
     └── encrypted_dot_config.zsh.age
@@ -92,13 +102,37 @@ installer layers read it through `read_list` in `scripts/lib/packages.sh`:
 ```bash
 source scripts/lib/packages.sh
 read_list packages.apt        # one item per line
-read_list cargo_tools.linux
+read_list cargo_tools
 read_list npm_global
 ```
 
 Keys are `packages.{apt,pacman,brew,pkg}` — matching what `detect_package_manager`
-returns — plus `cargo_tools.{common,linux,darwin}`, `npm_global`, and `pip_packages`.
+returns — plus the flat lists `cargo_tools` and `npm_global`. Anything cargo can install lives in `cargo_tools` only; herdr is installed by its upstream script in `01-os.sh`.
 To add a tool, edit that file and nothing else.
+
+## Chezmoi-only Install
+
+Chezmoi can do everything the installer layers do, with no dependency on `scripts/`.
+The install steps are `run_onchange_before_*` scripts in `home/.chezmoiscripts/`,
+templated over the same `.chezmoidata.yaml` lists. Each reruns only when its own
+list changes.
+
+This is the same flow as the one-liner in [Quick Start](#quick-start).
+
+| Script | Does |
+|--------|------|
+| `10-os-packages` | `packages.<manager>` via apt/pacman/brew/pkg (manager picked by `.chezmoitemplates/pkgmgr`) |
+| `20-rustup` | rustup (not on Termux) |
+| `30-cargo-tools` | `cargo_tools` not already in `cargo install --list` |
+| `40-npm-globals` | `npm_global` + `~/.pi/agent/*` dirs |
+| `50-herdr` | herdr upstream installer |
+
+| Installer | Chezmoi |
+|-----------|---------|
+| `--dry-run` | `chezmoi apply --dry-run --verbose` |
+| `--force <layer>` | `chezmoi state delete-bucket --bucket=scriptState`, then `chezmoi apply` |
+| `--list` | `chezmoi state dump` |
+| `--skip` / TUI | no equivalent |
 
 ## Installation Layers
 
@@ -106,9 +140,9 @@ Installation happens in 4 ordered layers:
 
 | Layer | Description | Package Manager |
 |-------|-------------|-----------------|
-| **os** | System packages (git, zsh, neovim, tmux, etc.) | apt/pacman/brew/pkg |
-| **cargo** | Rust toolchain + tools (eza, bat, zoxide, etc.) | cargo |
-| **npm** | NPM global packages (pi, claude-code, opencode) | npm |
+| **os** | System packages (zsh, neovim, emacs, fzf, node) + herdr | apt/pacman/brew/pkg |
+| **cargo** | Rust toolchain + tools (fd, bat, ripgrep, gitui, yazi) | cargo |
+| **npm** | NPM global packages (pi, claude-code) | npm |
 | **config** | Dotfile configuration via chezmoi | chezmoi |
 
 ## Installation Options
@@ -143,7 +177,7 @@ Installation happens in 4 ordered layers:
 # Run only configuration layer
 ./scripts/install.sh --config-only
 
-# ncurses TUI (requires python3 + blessed)
+# ncurses TUI (optional: pip install blessed, else CLI fallback)
 ./scripts/install.sh --tui
 ```
 
@@ -175,7 +209,6 @@ If a layer fails, fix the issue and re-run — the installer won't redo successf
 | Package install | apt | pacman | brew | pkg |
 | Rust/Cargo | Yes | Yes | Yes | No |
 | Nerd fonts | Yes | Yes | Yes | No |
-| Tmux auto-attach | Yes | Yes | Yes | No |
 | Xmodmap | Yes | Yes | No | No |
 
 ## Chezmoi Commands
